@@ -1,4 +1,5 @@
 # coding:utf-8
+
 import numpy as np
 import matplotlib.pyplot as plt
 import h5py
@@ -159,13 +160,18 @@ if __name__ == "__main__":
 	print ("w = " + str(w))
 	print ("b = " + str(b))
 	print "**********************************************************************"
-	# 1.获取训练样本，测试样本数据
+	'''
+	1.获取训练样本，测试样本数据
+	description:
+	- a training set of m_train images labeled as cat (y=1) or non-cat (y=0)
+	- a test set of m_test images labeled as cat or non-cat
+	- each image is of shape (num_px, num_px, 3) where 3 is for the 3 channels (RGB). Thus, each image is square (height = num_px) and (width = num_px).
+	'''
 	train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
 	index = 25
 	plt.show(train_set_x_orig[index])
 	print "y = " + str(train_set_y[:, index]) + ", it's a '" + classes[np.squeeze(train_set_y[:, index])].decode(
 		"utf-8") + "' picture."
-	print "**********************************************************************"
 	m_train = train_set_y.shape[1]
 	m_test = test_set_y.shape[1]
 	num_px = train_set_x_orig.shape[1]
@@ -185,14 +191,21 @@ if __name__ == "__main__":
 	print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 	print ("test_set_y shape: " + str(test_set_y.shape))
 	print ("sanity check after reshaping: " + str(train_set_x_flatten[0:5, 0]))
-	print "**********************************************************************"
 	train_set_x = train_set_x_flatten / 255
 	test_set_x = test_set_x_flatten / 255
-	print "**********************************************************************"
-	# 2.训练模型
+	'''
+	 2.训练模型 General Architecture of the learning algorithm
+	 steps:
+	    - Initialize the parameters of the model
+		- Learn the parameters for the model by minimizing the cost
+		- Use the learned parameters to make predictions (on the test set)
+	'''
 	d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=2000, learning_rate=0.005,
 	          print_cost=True)
-	# 3.错分样本显示
+	'''
+	3.Analyse the results and conclude
+	'''
+
 	index = 5
 	plt.imshow(test_set_x[:, index].reshape((num_px, num_px, 3)))
 	print ("y = " + str(test_set_y[0, index]) + ", you predicted that it is a \"" + classes[
