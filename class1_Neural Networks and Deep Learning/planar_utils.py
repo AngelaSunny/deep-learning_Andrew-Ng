@@ -31,5 +31,5 @@ def plot_decision_boundry():
 	pass
 
 
-def load_extra_dataset():
+def load_extra_datasets():
 	pass
