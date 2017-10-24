@@ -8,6 +8,7 @@ import sklearn.linear_model
 from testCases import *
 from planar_utils import plot_decision_boundary, sigmoid, tanh, load_planar_dataset, load_extra_datasets
 
+
 def layer_size(X, Y):
     '''
     Arguments:
@@ -99,6 +100,7 @@ def backward_propagation(parameters, cache, X, Y):
     cache -- a dictionary containing "Z1", "A1", "Z2" and "A2".
     X -- input data of shape (2, number of examples)
     Y -- "true" labels vector of shape (1, number of examples)
+    g'(z)=tanh'(z)=(1-z*z)
     Returns:
     grads -- python dictionary containing your gradients with respect to different parameters
     '''
@@ -238,7 +240,7 @@ if __name__ == "__main__":
         accuracy = float((np.dot(Y, predictions.T) + np.dot(1 - Y, 1 - predictions)) / float(Y.size) * 100)
         print ("Accuracy for {} hidden units: {} %".format(n_h, accuracy))
 
-    #Performance on other datasets
+    # Performance on other datasets
     noisy_circles, noisy_moons, blobs, gaussian_quantiles, no_structure = load_extra_datasets()
     datasets = {"noisy_circles": noisy_circles,
                 "noisy_moons": noisy_moons,
@@ -251,4 +253,3 @@ if __name__ == "__main__":
         Y = Y % 2
     # Visualize the data
     plt.scatter(X[0, :], X[1, :], c=Y, s=40, cmap=plt.cm.Spectral);
-
